@@ -18,7 +18,7 @@ app.use("/logout", require("./routes/logout"));
 
 app.use(verifyJWT);
 app.use("/users", require("./routes/user"));
-
+app.use("/api", require("./routes/api/transaction"));
 const PORT = process.env.port || 3500;
 
 mongoose.connection.once("open", () => {

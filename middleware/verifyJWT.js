@@ -2,7 +2,8 @@ const jwt = require("jsonwebtoken");
 
 const verifyJWT = (req, res, next) => {
   const headers = req.headers["authorization"];
-  if (!headers) return res.sendStatus(401);
+  if (!headers)
+    return res.status(401).json({ message: "Something went wrong! caas" });
   const token = headers.split(" ")[1];
   console.log(token);
 

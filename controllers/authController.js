@@ -11,7 +11,7 @@ const createUser = async (req, res) => {
 
   const hashedPassword = await bcrypt.hash(password, 12);
   const result = await User.create({ username, password: hashedPassword });
-
+  
   console.log(result);
 
   res.sendStatus(201);
@@ -41,8 +41,8 @@ const handleLogin = async (req, res) => {
     );
     findUser.refreshToken = refreshToken;
     const result = await findUser.save();
-    console.log(result);
-    res.cookie("jwt", refreshToken, { httpOnly: true });
+    console.log(result, 'loggedin');
+    res.cookie("jwt", refreshToken, { httpOnly: true, secure: true, sameSite: "None", maxAge: 86400000});
     return res.status(200).json({ accessToken });
   } else {
     res.status(401).json({ message: "login failed" });

@@ -6,7 +6,7 @@ const createTransaction = async (req, res) => {
   if (!transactionAmount || !transactionName) {
     return res.status(400).json({ message: "Required field(s) missing" });
   }
-
+  
   const findUser = await User.findOne({ username: req.user }).exec();
   if (!findUser) return res.sendStatus(403);
 
@@ -17,7 +17,8 @@ const createTransaction = async (req, res) => {
   });
   const result = await findUser.save();
   console.log(result);
-  res.sendStatus(201);
+  // send all transactions back to client
+  return res.status(201).json(result.transactions);
 };
 
 const deleteTransaction = async (req, res) => {
@@ -30,7 +31,8 @@ const deleteTransaction = async (req, res) => {
   try {
     await user.transactions.pull({ _id: transactionId });
     await user.save();
-    return res.sendStatus(200);
+    // send all transactions back to client
+    return res.status(200).json(user.transactions);
   } catch (err) {
     return res.status(400).json({ message: "Invalid transaction ID" });
   }

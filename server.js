@@ -8,18 +8,21 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 connectDB();
-const allowlist = ["http://localhost:3000", "https://paytrack.srikanth.ch" ,"https://expensemanage.vercel.app"];
-
+const allowlist = [
+  "http://localhost:3000",
+  "https://paytrack.srikanth.ch",
+  "https://srikanth.ch",
+  "https://expensemanage.vercel.app",
+];
 
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "expensemanage.vercel.app/login");
+  res.setHeader("Access-Control-Allow-Origin", "paytrack.srikanth.ch");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
   );
   next();
 });
-
 
 app.use(
   cors({

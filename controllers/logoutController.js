@@ -10,20 +10,14 @@ const handleLogout = async (req, res) => {
 
   if (!foundUser) {
     res.clearCookie("jwt", { httpOnly: true });
-    res.sendStatus(204);
-  }
-  try {
-    foundUser?.refreshToken = '';
-    const result = await foundUser.save()
-    console.log(result)
-  
-    res.clearCookie("jwt", { httpOnly: true });
     return res.sendStatus(204);
-  }catch(e) {
-   return res.sendStatus(400)
   }
-  
+  foundUser.refreshToken = "";
+  const result = await foundUser.save();
+  console.log(result);
+
+  res.clearCookie("jwt", { httpOnly: true });
+  return res.sendStatus(204);
 };
 
-
-module.exports = handleLogout
+module.exports = handleLogout;

@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 connectDB();
-const allowlist = ["http://localhost:3000", "https://expensemanage.vercel.app"];
+const allowlist = ["http://localhost:3000", "https://paytrack.srikanth.ch" ,"https://expensemanage.vercel.app"];
 
 
 app.use((req, res, next) => {

@@ -10,6 +10,7 @@ const handleLogout = async (req, res) => {
 
   if (!foundUser) {
     res.clearCookie("jwt", { httpOnly: true });
+    res.clearCookie("jwt", { domain: "srikanth.ch", path: "/" });
     return res.sendStatus(204);
   }
   foundUser.refreshToken = "";
@@ -17,6 +18,7 @@ const handleLogout = async (req, res) => {
   console.log(result);
 
   res.clearCookie("jwt", { httpOnly: true });
+  res.clearCookie("jwt", { domain: "srikanth.ch", path: "/" });
   return res.sendStatus(204);
 };
 

@@ -44,7 +44,6 @@ const handleLogin = async (req, res) => {
     const result = await findUser.save();
     console.log(result, "loggedin");
     res.cookie("jwt", refreshToken, {
-      domain: "srikanth.ch",
       httpOnly: true,
       secure: true,
       sameSite: "None",

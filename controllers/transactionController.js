@@ -1,4 +1,5 @@
 const User = require("../model/User");
+const redis = require('../config/redis');
 
 const createTransaction = async (req, res) => {
   const { transactionAmount, transactionName, transactionDate } = req.body;
@@ -38,10 +39,21 @@ const deleteTransaction = async (req, res) => {
   }
 };
 
-const getAllTransactions = (req, res) => {
-  User.findOne({ username: req.user })
-    .then((user) => {
+const getAllTransactions = async (req, res) => {
+  if (await redis.get(`user-${req.user}`) !== null) {
+    return await redis.get(`user-${req.user}`)
+      .then((result) => {
+        return res.status(200).json(JSON.parse(result));
+      })
+      .catch((err) => {
+        console.log(err);
+        return res.sendStatus(500);
+      });
+  }
+     User.findOne({ username: req.user })
+    .then(async (user) => {
       if (!user) return res.sendStatus(403);
+      await redis.set(`user-${req.user}`, JSON.stringify(user.transactions));
       return res.status(200).json(user.transactions);
     })
     .catch((err) => {

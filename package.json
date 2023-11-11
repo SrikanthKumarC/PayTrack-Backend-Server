@@ -1,5 +1,5 @@
 {
-  "name": "PayTrack Backend Server",
+  "name": "paytrackbackendserver",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",

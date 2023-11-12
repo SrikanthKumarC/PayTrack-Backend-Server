@@ -1,0 +1,15 @@
+version: "3"
+services:
+  paytrack_backend:
+    build:
+      context: .
+      args:
+        NODE_ENV: development
+    ports:
+      - "3500:3500"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    env_file:
+      - ./.env
+    command: npm run dev
